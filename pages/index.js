@@ -1,65 +1,76 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import React, { useState } from "react";
+import ReactMapGL, { Popup } from "react-map-gl";
+import Head from "next/head";
+import QRCode from "qrcode.react";
+import "mapbox-gl/dist/mapbox-gl.css";
+import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  const [viewport, setViewport] = useState({
+    longitude: -122.41669,
+    latitude: 37.7853,
+    zoom: 13,
+    pitch: 0,
+    bearing: 0,
+  });
+  const [tooltip, setTooltip] = useState(null);
+  const handleMapClick = ({ lngLat: [lng, lat], features }) => {
+    const treasure = features.find(
+      ({ sourceLayer }) => sourceLayer === "Bitcoin_Treasure_Map_1"
+    );
+    const tooltip = treasure
+      ? { lnurl: treasure.properties.lnurl, lat, lng }
+      : null;
+
+    setTooltip(tooltip);
+  };
+
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Bitcoin Treasur Map</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      <ReactMapGL
+        {...viewport}
+        width="100vw"
+        height="100vh"
+        mapStyle="mapbox://styles/smiyakawa/ckgeg8yv76vq71blukkgxm8vb"
+        mapboxApiAccessToken="pk.eyJ1Ijoic21peWFrYXdhIiwiYSI6ImNrZ2Z0N2RoeTFvNDUyeXF1MmplaTF0b3oifQ.cJFNRdlJrym41VBUFq4aBQ"
+        onViewportChange={setViewport}
+        onClick={handleMapClick}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 20,
+            right: 20,
+            backgroundColor: "white",
+            width: 280,
+            padding: 16,
+          }}
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+          <h1>Bitcoin Treasure Map #1</h1>
+          <p>status: all treasures found</p>
+        </div>
+        {tooltip && (
+          <Popup
+            latitude={tooltip.lat}
+            longitude={tooltip.lng}
+            onClose={() => setTooltip(null)}
+            closeButton={false}
+          >
+            <QRCode value={tooltip.lnurl} />
+            <p className={styles.bitcoinText}>
+              scan with{" "}
+              <span role="img" aria-label="lightning">
+                ⚡️
+              </span>{" "}
+              wallet
+            </p>
+          </Popup>
+        )}
+      </ReactMapGL>
     </div>
-  )
+  );
 }

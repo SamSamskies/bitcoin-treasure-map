@@ -11,6 +11,19 @@ a {
   text-decoration: none;
 }
 
+h1 {
+  font-size: 1.2em;
+}
+
 * {
   box-sizing: border-box;
+}
+
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
+  border-bottom-color: black;
+}
+
+.mapboxgl-popup-content {
+  display: flex;
+  flex-direction: column;
 }
