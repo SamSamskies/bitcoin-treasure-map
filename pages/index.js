@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Bitcoin Treasur Map</title>
+        <title>Bitcoin Treasure Map</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ReactMapGL
