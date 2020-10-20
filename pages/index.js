@@ -16,7 +16,7 @@ export default function Home() {
   const [tooltip, setTooltip] = useState(null);
   const handleMapClick = ({ lngLat: [lng, lat], features }) => {
     const treasure = features.find(
-      ({ sourceLayer }) => sourceLayer === "Bitcoin_Treasure_Map_1"
+      ({ sourceLayer }) => sourceLayer === "Bitcoin_Treasure_Map_2"
     );
     const tooltip = treasure
       ? { lnurl: treasure.properties.lnurl, lat, lng }
@@ -35,7 +35,7 @@ export default function Home() {
         {...viewport}
         width="100vw"
         height="100vh"
-        mapStyle="mapbox://styles/smiyakawa/ckgeg8yv76vq71blukkgxm8vb"
+        mapStyle="mapbox://styles/smiyakawa/ckghbwlxq0aqp19p292d5y7eb"
         mapboxApiAccessToken="pk.eyJ1Ijoic21peWFrYXdhIiwiYSI6ImNrZ2Z0N2RoeTFvNDUyeXF1MmplaTF0b3oifQ.cJFNRdlJrym41VBUFq4aBQ"
         onViewportChange={setViewport}
         onClick={handleMapClick}
@@ -50,8 +50,9 @@ export default function Home() {
             padding: 16,
           }}
         >
-          <h1>Bitcoin Treasure Map #1</h1>
-          <p>status: all treasures found</p>
+          <h1>Bitcoin Treasure Map #2</h1>
+          <p>There are 100k sats hidden in a single location map.</p>
+          <p>hint: Bitcoin ATM</p>
         </div>
         {tooltip && (
           <Popup
@@ -60,7 +61,7 @@ export default function Home() {
             onClose={() => setTooltip(null)}
             closeButton={false}
           >
-            <QRCode value={tooltip.lnurl} />
+            <QRCode value={tooltip.lnurl} style={{ margin: "auto" }} />
             <p className={styles.bitcoinText}>
               scan with{" "}
               <span role="img" aria-label="lightning">
