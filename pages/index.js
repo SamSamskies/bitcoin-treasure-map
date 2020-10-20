@@ -51,7 +51,7 @@ export default function Home() {
           }}
         >
           <h1>Bitcoin Treasure Map #2</h1>
-          <p>There are 100k sats hidden in a single location map.</p>
+          <p>There are 100k sats hidden in a single location on this map.</p>
           <p>hint: Bitcoin ATM</p>
         </div>
         {tooltip && (
