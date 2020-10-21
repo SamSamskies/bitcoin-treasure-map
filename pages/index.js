@@ -54,6 +54,7 @@ export default function Home() {
           <p>There are 100k sats hidden in a single location on this map.</p>
           <p>hint 1: Bitcoin ATM</p>
           <p>hint 2: coffee</p>
+          <p>status: treasure has been found</p>
         </div>
         {tooltip && (
           <Popup
