@@ -72,7 +72,7 @@ export default function Home() {
             longitude={tooltip.lng}
             closeButton={false}
           >
-            <h1>Welcom to Café Cocoa</h1>
+            <h1>Welcome to Café Cocoa</h1>
             <p>
               Café Cocoa is located in El Zonte, El Salvadore where the
               community has started a Bitcoin circular economy. Check out
