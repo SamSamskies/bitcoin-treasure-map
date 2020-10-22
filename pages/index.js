@@ -74,7 +74,7 @@ export default function Home() {
           >
             <h1>Welcome to Café Cocoa</h1>
             <p>
-              Café Cocoa is located in El Zonte, El Salvadore where the
+              Café Cocoa is located in El Zonte, El Salvador where the
               community has started a Bitcoin circular economy. Check out
               Bitcoin Beach for more details.
             </p>
