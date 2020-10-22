@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ReactMapGL, { Popup } from "react-map-gl";
+import ReactMapGL, { Popup, FlyToInterpolator } from "react-map-gl";
 import Head from "next/head";
 import QRCode from "qrcode.react";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -23,6 +23,15 @@ export default function Home() {
       : null;
 
     setTooltip(tooltip);
+  };
+  const handleShowMeClick = () => {
+    setViewport({
+      ...viewport,
+      latitude: 13.4968,
+      longitude: -89.4395,
+      transitionInterpolator: new FlyToInterpolator(),
+      transitionDuration: 8000,
+    });
   };
 
   return (
@@ -55,15 +64,28 @@ export default function Home() {
           <p>hint 1: Bitcoin ATM</p>
           <p>hint 2: coffee</p>
           <p>status: treasure has been found</p>
+          <button onClick={handleShowMeClick}>SHOW ME THE TREASURE</button>
         </div>
         {tooltip && (
           <Popup
             latitude={tooltip.lat}
             longitude={tooltip.lng}
-            onClose={() => setTooltip(null)}
             closeButton={false}
           >
-            <QRCode value={tooltip.lnurl} style={{ margin: "auto" }} />
+            <h1>Welcom to Café Cocoa</h1>
+            <p>
+              Café Cocoa is located in El Zonte, El Salvadore where the
+              community has started a Bitcoin circular economy. Check out
+              Bitcoin Beach for more details.
+            </p>
+            <a href="https://www.bitcoinbeach.com/" target="_blank">
+              https://www.bitcoinbeach.com/
+            </a>
+            <QRCode
+              value={tooltip.lnurl}
+              style={{ margin: "24px auto auto auto" }}
+              includeMargin
+            />
             <p className={styles.bitcoinText}>
               scan with{" "}
               <span role="img" aria-label="lightning">
