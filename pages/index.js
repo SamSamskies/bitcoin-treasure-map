@@ -49,22 +49,16 @@ export default function Home() {
         onViewportChange={setViewport}
         onClick={handleMapClick}
       >
-        <div
-          style={{
-            position: "absolute",
-            top: 20,
-            right: 20,
-            backgroundColor: "white",
-            width: 280,
-            padding: 16,
-          }}
-        >
+        <div className={styles.panel}>
           <h1>Bitcoin Treasure Map #2</h1>
           <p>There are 100k sats hidden in a single location on this map.</p>
           <p>hint 1: Bitcoin ATM</p>
           <p>hint 2: coffee</p>
           <p>status: treasure has been found</p>
           <button onClick={handleShowMeClick}>SHOW ME THE TREASURE</button>
+          <p className={styles.madeWithText}>
+            <small>Made with NgU Technology</small>
+          </p>
         </div>
         {tooltip && (
           <Popup
@@ -74,9 +68,9 @@ export default function Home() {
           >
             <h1>Welcome to Café Cocoa</h1>
             <p>
-              Café Cocoa is located in El Zonte, El Salvador where the
-              community has started a Bitcoin circular economy. Check out
-              Bitcoin Beach for more details.
+              Café Cocoa is located in El Zonte, El Salvador where the community
+              has started a Bitcoin circular economy. Check out Bitcoin Beach
+              for more details.
             </p>
             <a href="https://www.bitcoinbeach.com/" target="_blank">
               https://www.bitcoinbeach.com/
