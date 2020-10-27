@@ -41,7 +41,7 @@ export default function Home() {
     )
       .then((res) => res.json())
       .then(console.log);
-  });
+  }, []);
 
   return (
     <div>
