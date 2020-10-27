@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactMapGL, { Popup, FlyToInterpolator } from "react-map-gl";
 import Head from "next/head";
 import QRCode from "qrcode.react";
@@ -33,6 +33,15 @@ export default function Home() {
       transitionDuration: 8000,
     });
   };
+
+  useEffect(() => {
+    // just testing shit out
+    fetch(
+      "https://samsamskies-proxy-27d3u.ondigitalocean.app/withdraw/api/v1/links/CXcCx75THbHPYRdpBtLtyD?fields=lnurl,used,uses"
+    )
+      .then((res) => res.json())
+      .then(console.log);
+  });
 
   return (
     <div>
