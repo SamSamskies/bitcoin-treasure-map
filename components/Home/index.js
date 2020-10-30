@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ReactMapGL, { Popup } from "react-map-gl";
 import DeckGL, { IconLayer } from "deck.gl";
 import Head from "next/head";
@@ -29,7 +29,7 @@ export default function Home() {
   });
   const [features, setFeatures] = useState([]);
   const [tooltip, setTooltip] = useState(null);
-  const [status, setStatus] = useState("loading");
+  const [status, setStatus] = useState("game-over");
   const iconLayer = new IconLayer({
     id: "icon-layer",
     data: features,
@@ -48,10 +48,6 @@ export default function Home() {
       setFeatures(createRandomPoints(uses - used));
     });
   };
-
-  useEffect(() => {
-    updateStatusAndHideTreasures();
-  }, []);
 
   return (
     <div>
@@ -98,9 +94,9 @@ export default function Home() {
             there are no treasures left. The earlier you start playing, the
             easier it will be to find a treasure.
           </p>
-          <p>status: {status}</p>
+          <p>{`status: 20 of 20 treasures have been found`}</p>
           <p className={styles.madeWithText}>
-            <small>Made with NgU Technology</small>
+            <small>Made with NgU technology</small>
           </p>
         </div>
         {tooltip && (
