@@ -8,7 +8,7 @@
   margin-bottom: 0;
 }
 
-.panel {
+.panel, .infoIcon {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -16,6 +16,12 @@
   width: 280px;
   padding: 16px;
   z-index: 2;
+}
+
+.infoIcon {
+  border-radius: 50%;
+  width: auto;
+  padding: 0;
 }
 
 .mask {

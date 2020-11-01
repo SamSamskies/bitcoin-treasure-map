@@ -3,6 +3,11 @@ import ReactMapGL, { Popup } from "react-map-gl";
 import DeckGL, { IconLayer } from "deck.gl";
 import Head from "next/head";
 import QRCode from "qrcode.react";
+import Grid from "@material-ui/core/Grid";
+import Grow from "@material-ui/core/Grow";
+import IconButton from "@material-ui/core/IconButton";
+import MinimizeRoundedIcon from "@material-ui/icons/MinimizeRounded";
+import InfoIcon from "@material-ui/icons/Info";
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./Home.module.css";
 import { getWithdrawLinkMetadata } from "./services";
@@ -30,6 +35,7 @@ export default function Home() {
   const [features, setFeatures] = useState([]);
   const [tooltip, setTooltip] = useState(null);
   const [status, setStatus] = useState("game-over");
+  const [isInfoMaximized, setIsInfoMaximized] = useState(true);
   const iconLayer = new IconLayer({
     id: "icon-layer",
     data: features,
@@ -84,21 +90,45 @@ export default function Home() {
             });
           }}
         />
-        <div className={styles.panel}>
-          <h1>Bitcoin Treasure Map #3</h1>
-          <p>
-            There is a total of 200k sats hidden in this map. The game starts
-            with 20 treasures and each treasure contains an lnurl redeemable for
-            10k sats. The locations are chosen at random on every page load. The
-            number of treasures loaded on page load will keep going down until
-            there are no treasures left. The earlier you start playing, the
-            easier it will be to find a treasure.
-          </p>
-          <p>{`status: 20 of 20 treasures have been found`}</p>
-          <p className={styles.madeWithText}>
-            <small>Made with NgU technology</small>
-          </p>
-        </div>
+        <Grow in={isInfoMaximized} style={{ transformOrigin: "top right" }}>
+          <div className={styles.panel}>
+            <Grid container justify="space-between">
+              <h1>Bitcoin Treasure Map #3</h1>
+              <div>
+                <IconButton
+                  aria-label="minimize"
+                  size="small"
+                  onClick={() => setIsInfoMaximized(false)}
+                >
+                  <MinimizeRoundedIcon />
+                </IconButton>
+              </div>
+            </Grid>
+            <p>
+              There is a total of 200k sats hidden in this map. The game starts
+              with 20 treasures and each treasure contains an lnurl redeemable
+              for 10k sats. The locations are chosen at random on every page
+              load. The number of treasures loaded on page load will keep going
+              down until there are no treasures left. The earlier you start
+              playing, the easier it will be to find a treasure.
+            </p>
+            <p>{`status: 20 of 20 treasures have been found`}</p>
+            <p className={styles.madeWithText}>
+              <small>Made with NgU technology</small>
+            </p>
+          </div>
+        </Grow>
+        <Grow in={!isInfoMaximized} style={{ transformOrigin: "top right" }}>
+          <div className={styles.infoIcon}>
+            <IconButton
+              aria-label="minimize"
+              size="small"
+              onClick={() => setIsInfoMaximized(true)}
+            >
+              <InfoIcon fontSize="large" />
+            </IconButton>
+          </div>
+        </Grow>
         {tooltip && (
           <Popup latitude={tooltip.lat} longitude={tooltip.lng}>
             <h1 className={styles.bitcoinText}>
