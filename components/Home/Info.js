@@ -26,8 +26,11 @@ export default function Info() {
             </div>
           </Grid>
           <p>
-            There are 3 treasures hidden in this map each containing a 21k sats
-            ⚡️ gift.
+            <p style={{ textDecoration: "line-through" }}>
+              There are 3 treasures hidden in this map each containing a 21k
+              sats ⚡️ gift.
+            </p>
+            <p>Game over. All treasures have been found.</p>
             <a href="https://twitter.com/SamSamskies" target="_blank">
               {" "}
               Follow me on Twitter{" "}
