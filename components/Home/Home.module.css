@@ -3,27 +3,6 @@
   margin-bottom: 0;
 }
 
-.madeWithText {
-  margin-top: 80px;
-  margin-bottom: 0;
-}
-
-.panel, .infoIcon {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: white;
-  width: 280px;
-  padding: 16px;
-  z-index: 2;
-}
-
-.infoIcon {
-  border-radius: 50%;
-  width: auto;
-  padding: 0;
-}
-
 .mask {
   position: absolute;
   top: 0;
