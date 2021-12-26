@@ -26,11 +26,15 @@ export default function Info() {
             </div>
           </Grid>
           <p>
-            <p style={{ textDecoration: "line-through" }}>
+            <span style={{ textDecoration: "line-through" }}>
               There are 3 treasures hidden in this map each containing a 21k
               sats ⚡️ gift.
-            </p>
-            <p>Game over. All treasures have been found.</p>
+            </span>
+            <br />
+            <br />
+            <span>Game over. All treasures have been found.</span>
+            <br />
+            <br />
             <a href="https://twitter.com/SamSamskies" target="_blank">
               {" "}
               Follow me on Twitter{" "}
