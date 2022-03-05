@@ -25,7 +25,6 @@ export default function Info() {
               </IconButton>
             </div>
           </Grid>
-          <p>Use BIP39 words to locate anywhere in the world!</p>
           <p>
             Search or click on the map to reveal BIP39 words for a given
             location.
