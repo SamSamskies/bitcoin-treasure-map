@@ -32,7 +32,7 @@ export default function Info() {
           <p className={styles.madeWithText}>
             <small>
               Powered by{" "}
-              <a href="hhttps://github.com/arcbtc/where39" target="_blank">
+              <a href="https://github.com/arcbtc/where39" target="_blank">
                 Where39
               </a>
             </small>
