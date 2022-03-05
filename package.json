@@ -15,7 +15,8 @@
     "qrcode.react": "^1.0.0",
     "react": "16.14.0",
     "react-dom": "16.14.0",
-    "react-map-gl": "^5.2.9"
+    "react-map-gl": "^5.2.9",
+    "react-map-gl-geocoder": "^2.2.0"
   },
   "devDependencies": {
     "prettier": "^2.1.2"
