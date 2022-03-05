@@ -20,26 +20,5 @@ h1 {
 }
 
 .mapboxgl-popup .mapboxgl-popup-content {
-  display: flex;
-  flex-direction: column;
-  width: 280px;
-  color: white;
-  border-radius: 4px;
-  background: black;
-}
-
-.mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
-  border-bottom-color: black !important;
-}
-
-.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
-  border-top-color: black !important;
-}
-
-.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
-  border-right-color: black !important;
-}
-
-.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
-  border-left-color: black !important;
+  text-align: center;
 }

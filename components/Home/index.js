@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/router";
-import ReactMapGL, { Marker } from "react-map-gl";
+import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
 import Head from "next/head";
+import { toWords } from "./where39";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
@@ -47,8 +48,12 @@ export default function Home() {
   );
   const handleOnResult = useCallback(({ result }) => {
     const [longitude, latitude] = result.center;
+    const words = toWords(latitude, longitude).join(" ");
 
-    setTooltip({ longitude, latitude });
+    setTooltip({ longitude, latitude, words });
+  }, []);
+  const handleOnClear = useCallback(() => {
+    setTooltip(null);
   }, []);
 
   useEffect(() => {
@@ -90,21 +95,32 @@ export default function Home() {
           position="top-left"
           marker={false}
           onResult={handleOnResult}
+          onClear={handleOnClear}
         />
         {tooltip && (
-          <Marker
-            latitude={tooltip.latitude}
-            longitude={tooltip.longitude}
-            offsetLeft={-BITCOIN_LOGO_SIZE / 2}
-            offsetTop={-BITCOIN_LOGO_SIZE / 2}
-          >
-            <img
-              src="bitcoinLogo.png"
-              alt="Bitcoin logo"
-              width={BITCOIN_LOGO_SIZE}
-              height={BITCOIN_LOGO_SIZE}
-            />
-          </Marker>
+          <>
+            <Marker
+              latitude={tooltip.latitude}
+              longitude={tooltip.longitude}
+              offsetLeft={-BITCOIN_LOGO_SIZE / 2}
+              offsetTop={-BITCOIN_LOGO_SIZE / 2}
+            >
+              <img
+                src="bitcoinLogo.png"
+                alt="Bitcoin logo"
+                width={BITCOIN_LOGO_SIZE}
+                height={BITCOIN_LOGO_SIZE}
+              />
+            </Marker>
+            <Popup
+              latitude={tooltip.latitude}
+              longitude={tooltip.longitude}
+              closeButton={false}
+            >
+              <p>{tooltip.words}</p>
+              <p>{`${tooltip.latitude}, ${tooltip.longitude}`}</p>
+            </Popup>
+          </>
         )}
       </ReactMapGL>
     </div>
