@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
 import Head from "next/head";
+import Info from "./Info";
 import { toWords } from "./where39";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
@@ -14,6 +15,7 @@ const BITCOIN_LOGO_SIZE = 20;
 export default function Home() {
   const router = useRouter();
   const mapRef = useRef();
+  const geocoderContainerRef = useRef();
   const [viewport, setViewport] = useState({
     longitude: -89.4417,
     latitude: 13.4975,
@@ -46,15 +48,20 @@ export default function Home() {
     },
     [handleViewportChange]
   );
-  const handleOnResult = useCallback(({ result }) => {
-    const [longitude, latitude] = result.center;
+  const setTooltipValues = ([longitude, latitude]) => {
     const words = toWords(latitude, longitude).join(" ");
 
     setTooltip({ longitude, latitude, words });
+  };
+  const handleOnResult = useCallback(({ result }) => {
+    setTooltipValues(result.center);
   }, []);
   const handleOnClear = useCallback(() => {
     setTooltip(null);
   }, []);
+  const handleMapClick = ({ lngLat }) => {
+    setTooltipValues(lngLat);
+  };
 
   useEffect(() => {
     if (router.isReady) {
@@ -79,17 +86,24 @@ export default function Home() {
         <title>Bitcoin Treasure Map</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Info />
+      <div
+        ref={geocoderContainerRef}
+        style={{ position: "absolute", top: 20, left: 20, zIndex: 1 }}
+      />
       <ReactMapGL
         ref={mapRef}
         {...viewport}
-        mapStyle="mapbox://styles/smiyakawa/ckxm947bt40jf14oa5koel25y"
+        mapStyle="mapbox://styles/mapbox/dark-v10"
         width="100vw"
         height="100vh"
         mapboxApiAccessToken={MAPBOX_TOKEN}
         onViewportChange={handleViewportChange}
+        onClick={handleMapClick}
       >
         <Geocoder
           mapRef={mapRef}
+          containerRef={geocoderContainerRef}
           onViewportChange={handleGeocoderViewportChange}
           mapboxApiAccessToken={MAPBOX_TOKEN}
           position="top-left"
@@ -115,7 +129,7 @@ export default function Home() {
             <Popup
               latitude={tooltip.latitude}
               longitude={tooltip.longitude}
-              closeButton={false}
+              onClose={() => setTooltip(null)}
             >
               <p>{tooltip.words}</p>
               <p>{`${tooltip.latitude}, ${tooltip.longitude}`}</p>

@@ -14,7 +14,7 @@ export default function Info() {
       <Grow in={isInfoMaximized} style={{ transformOrigin: "top right" }}>
         <div className={styles.panel}>
           <Grid container justifyContent="space-between">
-            <h1>Bitcoin Treasure Map #4</h1>
+            <h1>Bitcoin Treasure Map</h1>
             <div>
               <IconButton
                 aria-label="minimize"
@@ -25,27 +25,16 @@ export default function Info() {
               </IconButton>
             </div>
           </Grid>
+          <p>Use BIP39 words to locate anywhere in the world!</p>
           <p>
-            <span style={{ textDecoration: "line-through" }}>
-              There are 3 treasures hidden in this map each containing a 21k
-              sats ⚡️ gift.
-            </span>
-            <br />
-            <br />
-            <span>Game over. All treasures have been found.</span>
-            <br />
-            <br />
-            <a href="https://twitter.com/SamSamskies" target="_blank">
-              {" "}
-              Follow me on Twitter{" "}
-            </a>
-            for hints and updates.
+            Search or click on the map to reveal BIP39 words for a given
+            location.
           </p>
           <p className={styles.madeWithText}>
             <small>
               Powered by{" "}
-              <a href="https://lightning.gifts/" target="_blank">
-                Lightning Gifts
+              <a href="hhttps://github.com/arcbtc/where39" target="_blank">
+                Where39
               </a>
             </small>
           </p>
