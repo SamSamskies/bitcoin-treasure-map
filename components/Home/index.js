@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import ReactMapGL, { Popup } from "react-map-gl";
+import ReactMapGL from "react-map-gl";
 import Head from "next/head";
-import QRCode from "qrcode.react";
-import Info from "./Info";
 import "mapbox-gl/dist/mapbox-gl.css";
-import styles from "./Home.module.css";
 
 export default function Home() {
   const router = useRouter();
@@ -16,7 +13,6 @@ export default function Home() {
     pitch: 0,
     bearing: 0,
   });
-  const [tooltip, setTooltip] = useState(null);
   const handleViewportChange = (viewport) => {
     if (router.isReady) {
       router.query.long = viewport.longitude;
@@ -26,16 +22,6 @@ export default function Home() {
     }
 
     setViewport(viewport);
-  };
-  const handleMapClick = ({ lngLat: [lng, lat], features }) => {
-    const treasure = features.find(
-      ({ sourceLayer }) => sourceLayer === "Bitcoin_Treasure_Map_4"
-    );
-    const tooltip = treasure
-      ? { value: treasure.properties.value, lat, lng }
-      : null;
-
-    setTooltip(tooltip);
   };
 
   useEffect(() => {
@@ -68,29 +54,7 @@ export default function Home() {
         height="100vh"
         mapboxApiAccessToken="pk.eyJ1Ijoic21peWFrYXdhIiwiYSI6ImNrZ2Z0N2RoeTFvNDUyeXF1MmplaTF0b3oifQ.cJFNRdlJrym41VBUFq4aBQ"
         onViewportChange={handleViewportChange}
-        onClick={handleMapClick}
-      >
-        <Info />
-        {tooltip && (
-          <Popup latitude={tooltip.lat} longitude={tooltip.lng}>
-            <h1 className={styles.bitcoinText}>
-              You found a bitcoin treasure!
-            </h1>
-            <QRCode
-              value={tooltip.value}
-              style={{ margin: "24px auto auto auto" }}
-              includeMargin
-            />
-            <p
-              role="img"
-              aria-label="lightning"
-              style={{ textAlign: "center" }}
-            >
-              ⚡️
-            </p>
-          </Popup>
-        )}
-      </ReactMapGL>
+      />
     </div>
   );
 }
