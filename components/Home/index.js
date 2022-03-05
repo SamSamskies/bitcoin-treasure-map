@@ -19,7 +19,7 @@ export default function Home() {
   const [viewport, setViewport] = useState({
     longitude: -89.4417,
     latitude: 13.4975,
-    zoom: 5,
+    zoom: 10,
     pitch: 0,
     bearing: 0,
   });
