@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/router";
-import ReactMapGL from "react-map-gl";
+import ReactMapGL, { Marker } from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
 import Head from "next/head";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -8,6 +8,7 @@ import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1Ijoic21peWFrYXdhIiwiYSI6ImNrZ2Z0N2RoeTFvNDUyeXF1MmplaTF0b3oifQ.cJFNRdlJrym41VBUFq4aBQ";
+const BITCOIN_LOGO_SIZE = 20;
 
 export default function Home() {
   const router = useRouter();
@@ -19,6 +20,7 @@ export default function Home() {
     pitch: 0,
     bearing: 0,
   });
+  const [tooltip, setTooltip] = useState(null);
   const handleViewportChange = useCallback(
     (viewport) => {
       if (router.isReady) {
@@ -43,6 +45,11 @@ export default function Home() {
     },
     [handleViewportChange]
   );
+  const handleOnResult = useCallback(({ result }) => {
+    const [longitude, latitude] = result.center;
+
+    setTooltip({ longitude, latitude });
+  }, []);
 
   useEffect(() => {
     if (router.isReady) {
@@ -81,7 +88,24 @@ export default function Home() {
           onViewportChange={handleGeocoderViewportChange}
           mapboxApiAccessToken={MAPBOX_TOKEN}
           position="top-left"
+          marker={false}
+          onResult={handleOnResult}
         />
+        {tooltip && (
+          <Marker
+            latitude={tooltip.latitude}
+            longitude={tooltip.longitude}
+            offsetLeft={-BITCOIN_LOGO_SIZE / 2}
+            offsetTop={-BITCOIN_LOGO_SIZE / 2}
+          >
+            <img
+              src="bitcoinLogo.png"
+              alt="Bitcoin logo"
+              width={BITCOIN_LOGO_SIZE}
+              height={BITCOIN_LOGO_SIZE}
+            />
+          </Marker>
+        )}
       </ReactMapGL>
     </div>
   );
