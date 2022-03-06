@@ -120,7 +120,6 @@ export default function Home() {
           marker={false}
           onResult={handleOnResult}
           onClear={handleOnClear}
-          onLoading={console.log}
         />
         {tooltip && (
           <>
