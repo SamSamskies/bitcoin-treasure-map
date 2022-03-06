@@ -7,7 +7,9 @@ import InfoIcon from "@material-ui/icons/Info";
 import styles from "./Info.module.css";
 
 export default function Info() {
-  const [isInfoMaximized, setIsInfoMaximized] = useState(true);
+  const [isInfoMaximized, setIsInfoMaximized] = useState(
+    window.innerWidth > 620
+  );
 
   return (
     <>
