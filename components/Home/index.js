@@ -70,13 +70,19 @@ export default function Home() {
 
         return Number.isNaN(normalized) ? undefined : normalized;
       };
+      const longitude = normalizeQueryParam(router.query?.long);
+      const latitude = normalizeQueryParam(router.query?.lat);
 
       setViewport({
         ...viewport,
-        longitude: normalizeQueryParam(router.query?.long),
-        latitude: normalizeQueryParam(router.query?.lat),
+        longitude,
+        latitude,
         zoom: normalizeQueryParam(router.query?.zoom),
       });
+
+      if (longitude && latitude) {
+        setTooltipValues([longitude, latitude]);
+      }
     }
   }, [router.isReady]);
 
@@ -110,6 +116,7 @@ export default function Home() {
           marker={false}
           onResult={handleOnResult}
           onClear={handleOnClear}
+          onLoading={console.log}
         />
         {tooltip && (
           <>
