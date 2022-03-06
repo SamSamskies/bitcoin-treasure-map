@@ -49,7 +49,7 @@ export default function Home() {
     [handleViewportChange]
   );
   const setTooltipValues = ([longitude, latitude]) => {
-    const words = toWords(latitude, longitude).join(" ");
+    const words = toWords(latitude, longitude).join(".");
 
     setTooltip({ longitude, latitude, words });
   };
