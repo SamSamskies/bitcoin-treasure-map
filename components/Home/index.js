@@ -96,7 +96,7 @@ export default function Home() {
         <title>Bitcoin Treasure Map</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {router.isReady && <Info />}
+      <Info />
       <div
         ref={geocoderContainerRef}
         style={{ position: "absolute", top: 20, left: 20, zIndex: 1 }}
