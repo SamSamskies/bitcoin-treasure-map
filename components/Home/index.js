@@ -139,7 +139,7 @@ export default function Home() {
             <Popup
               latitude={tooltip.latitude}
               longitude={tooltip.longitude}
-              onClose={() => setTooltip(null)}
+              closeButton={false}
             >
               <p>{tooltip.words}</p>
               <p>{`${tooltip.latitude}, ${tooltip.longitude}`}</p>
