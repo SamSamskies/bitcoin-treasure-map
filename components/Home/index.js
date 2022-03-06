@@ -61,6 +61,10 @@ export default function Home() {
   }, []);
   const handleMapClick = ({ lngLat }) => {
     setTooltipValues(lngLat);
+
+    router.query.long = lngLat[0];
+    router.query.lat = lngLat[1];
+    router.push(router);
   };
 
   useEffect(() => {
